@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="sUY-3o-3KY">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="rWK-on-ST5">
+            <objects>
+                <navigationController id="sUY-3o-3KY" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Pa1-wv-g2C">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="fIT-RN-NxN"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UWh-nR-MtT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-708" y="133"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="QHPDFDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="56v-0U-HCh"/>
+                        <viewControllerLayoutGuide type="bottom" id="DpA-zg-1a3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VyO-93-hRr">
+                                <rect key="frame" x="133.5" y="258.5" width="109" height="30"/>
+                                <state key="normal" title="QHPDFViewList"/>
+                                <connections>
+                                    <action selector="showPDFViewAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4Js-CS-kKV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N1R-NM-S0p">
+                                <rect key="frame" x="130.5" y="198.5" width="114" height="30"/>
+                                <state key="normal" title="QHPDFWebView"/>
+                                <connections>
+                                    <action selector="showPDFWebViewAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="r30-y9-cyF"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QLw-Jd-GV3">
+                                <rect key="frame" x="114.5" y="318.5" width="146" height="30"/>
+                                <state key="normal" title="QHPDFViewPageCurl"/>
+                                <connections>
+                                    <action selector="showPDFViewPageCurlAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="21P-X8-OJt"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7rH-YA-wIO">
+                                <rect key="frame" x="109" y="378.5" width="157" height="30"/>
+                                <state key="normal" title="QHPDFViewPageScroll"/>
+                                <connections>
+                                    <action selector="showPDFViewPageScrollAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ygA-6I-aq3"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XXV-OT-jRu">
+                                <rect key="frame" x="164" y="438.5" width="47" height="30"/>
+                                <state key="normal" title="PDFKit"/>
+                                <connections>
+                                    <action selector="showPDFKitAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fY1-OQ-eHQ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="XXV-OT-jRu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="2Zu-M7-DKB"/>
+                            <constraint firstItem="VyO-93-hRr" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-60" id="59z-js-219"/>
+                            <constraint firstItem="7rH-YA-wIO" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Lsy-l0-Gax"/>
+                            <constraint firstItem="VyO-93-hRr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="P9Y-Ej-mdA"/>
+                            <constraint firstItem="XXV-OT-jRu" firstAttribute="top" secondItem="7rH-YA-wIO" secondAttribute="bottom" constant="30" id="clb-7U-6UJ"/>
+                            <constraint firstItem="7rH-YA-wIO" firstAttribute="top" secondItem="QLw-Jd-GV3" secondAttribute="bottom" constant="30" id="dZt-XY-sS1"/>
+                            <constraint firstItem="QLw-Jd-GV3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="g1G-p1-VQb"/>
+                            <constraint firstItem="VyO-93-hRr" firstAttribute="top" secondItem="N1R-NM-S0p" secondAttribute="bottom" constant="30" id="oKf-y7-XHY"/>
+                            <constraint firstItem="QLw-Jd-GV3" firstAttribute="top" secondItem="VyO-93-hRr" secondAttribute="bottom" constant="30" id="vZt-cq-HWe"/>
+                            <constraint firstItem="N1R-NM-S0p" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="wrd-46-1We"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="onG-Tc-jc5"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="212" y="133"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="fuz-9M-M0p">
+            <objects>
+                <viewController storyboardIdentifier="PDFViewController" id="8uJ-xb-Lkf" customClass="PDFViewController" customModule="QHPDFDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aPk-gA-hst"/>
+                        <viewControllerLayoutGuide type="bottom" id="y1V-4f-eiw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3Xe-bs-bOO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QTB-ys-qG2">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="QTB-ys-qG2" firstAttribute="top" secondItem="aPk-gA-hst" secondAttribute="bottom" id="Ypu-vW-LDx"/>
+                            <constraint firstAttribute="trailing" secondItem="QTB-ys-qG2" secondAttribute="trailing" id="jwp-xb-NBv"/>
+                            <constraint firstItem="QTB-ys-qG2" firstAttribute="leading" secondItem="3Xe-bs-bOO" secondAttribute="leading" id="stM-bf-Hle"/>
+                            <constraint firstAttribute="bottom" secondItem="QTB-ys-qG2" secondAttribute="bottom" id="tuo-rD-7cQ"/>
+                        </constraints>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="contentView" destination="QTB-ys-qG2" id="R4e-4h-TYf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gbo-B4-HKA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1471" y="32"/>
+        </scene>
+        <!--Kit View Controller-->
+        <scene sceneID="Gt5-JU-mdQ">
+            <objects>
+                <viewController storyboardIdentifier="PDFKitViewController" id="2Uz-LS-Wiw" customClass="PDFKitViewController" customModule="QHPDFDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8Dg-4J-nTk"/>
+                        <viewControllerLayoutGuide type="bottom" id="JhS-0K-2L6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="o1C-7g-aGv">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vdn-NT-bRB">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I7M-Oq-gHn">
+                                <rect key="frame" x="30" y="577" width="101" height="30"/>
+                                <state key="normal" title="thumbnailView"/>
+                                <connections>
+                                    <action selector="showPDFThumbnailViewAction:" destination="2Uz-LS-Wiw" eventType="touchUpInside" id="yeR-3U-0yt"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OFn-Wi-okt">
+                                <rect key="frame" x="164" y="577" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="testAction:" destination="2Uz-LS-Wiw" eventType="touchUpInside" id="OLc-ro-48s"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="OFn-Wi-okt" firstAttribute="leading" secondItem="I7M-Oq-gHn" secondAttribute="trailing" constant="33" id="0Ma-ZG-cQT"/>
+                            <constraint firstAttribute="trailing" secondItem="vdn-NT-bRB" secondAttribute="trailing" id="BuH-5Y-MO5"/>
+                            <constraint firstItem="vdn-NT-bRB" firstAttribute="leading" secondItem="o1C-7g-aGv" secondAttribute="leading" id="F49-gt-C1h"/>
+                            <constraint firstItem="JhS-0K-2L6" firstAttribute="top" secondItem="vdn-NT-bRB" secondAttribute="bottom" id="UMl-Iq-sqi"/>
+                            <constraint firstItem="vdn-NT-bRB" firstAttribute="top" secondItem="8Dg-4J-nTk" secondAttribute="bottom" id="oOQ-LT-Sja"/>
+                            <constraint firstItem="OFn-Wi-okt" firstAttribute="bottom" secondItem="I7M-Oq-gHn" secondAttribute="bottom" id="toA-gl-ph4"/>
+                            <constraint firstItem="I7M-Oq-gHn" firstAttribute="leading" secondItem="o1C-7g-aGv" secondAttribute="leading" constant="30" id="y6u-Qj-3cP"/>
+                            <constraint firstItem="JhS-0K-2L6" firstAttribute="top" secondItem="I7M-Oq-gHn" secondAttribute="bottom" constant="60" id="yxq-4B-Qh1"/>
+                        </constraints>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="contentView" destination="vdn-NT-bRB" id="Cr7-2A-1TT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Ud-Ry-XFl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2252" y="31.934032983508249"/>
+        </scene>
+    </scenes>
+</document>
