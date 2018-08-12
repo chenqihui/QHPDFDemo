@@ -28,7 +28,7 @@ class PDFKitViewController: UIViewController, PDFDocumentDelegate {
         self.contentView.addSubview(pdfView)
         
         
-        guard let path = Bundle.main.path(forResource: "mp4", ofType: "pdf") else {
+        guard let path = Bundle.main.path(forResource: "PDF32000_2008", ofType: "pdf") else {
             return
         }
         let url = URL(fileURLWithPath: path)
@@ -77,9 +77,12 @@ class PDFKitViewController: UIViewController, PDFDocumentDelegate {
     @IBAction func testAction(_ sender: Any) {
         if let pdfOutline = pdfDocument.outlineRoot {
             print("root = \(String(describing: pdfOutline.label))")
-            for index in 1...pdfOutline.numberOfChildren {
-                let childOutline = pdfOutline.child(at: index)
-                print("\(String(describing: childOutline?.label))")
+            for index in 1..<pdfOutline.numberOfChildren {
+                if let childOutline = pdfOutline.child(at: index) {
+                    if let text = childOutline.label {
+                        print("\(text)")
+                    }
+                }
             }
         }
         
