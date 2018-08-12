@@ -19,6 +19,7 @@
 		74391265211AFC8000472B63 /* QHPDFWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74391264211AFC8000472B63 /* QHPDFWebView.swift */; };
 		74391269211BEE4100472B63 /* QHPDFView+Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74391268211BEE4100472B63 /* QHPDFView+Page.swift */; };
 		74A3AC15211D7506004B234C /* PDFKitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A3AC14211D7506004B234C /* PDFKitViewController.swift */; };
+		74A3AC1721209E81004B234C /* PDF32000_2008.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 74A3AC1621209E81004B234C /* PDF32000_2008.pdf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		74391264211AFC8000472B63 /* QHPDFWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QHPDFWebView.swift; sourceTree = "<group>"; };
 		74391268211BEE4100472B63 /* QHPDFView+Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QHPDFView+Page.swift"; sourceTree = "<group>"; };
 		74A3AC14211D7506004B234C /* PDFKitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFKitViewController.swift; sourceTree = "<group>"; };
+		74A3AC1621209E81004B234C /* PDF32000_2008.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = PDF32000_2008.pdf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 		743912582119962700472B63 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				74A3AC1621209E81004B234C /* PDF32000_2008.pdf */,
 				743912592119963600472B63 /* mp4.pdf */,
 			);
 			path = Resource;
@@ -161,6 +164,7 @@
 			files = (
 				7439125A2119963600472B63 /* mp4.pdf in Resources */,
 				743912512119918900472B63 /* LaunchScreen.storyboard in Resources */,
+				74A3AC1721209E81004B234C /* PDF32000_2008.pdf in Resources */,
 				7439124E2119918900472B63 /* Assets.xcassets in Resources */,
 				7439124C2119918500472B63 /* Main.storyboard in Resources */,
 			);
