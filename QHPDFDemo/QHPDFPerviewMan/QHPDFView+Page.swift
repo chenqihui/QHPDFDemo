@@ -97,7 +97,9 @@ extension QHPDFView: UIPageViewControllerDataSource, UIPageViewControllerDelegat
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        pageIsAnimating = false
+        if finished == true, completed == true {
+            pageIsAnimating = false
+        }
     }
     
 }
