@@ -8,16 +8,19 @@
 
 import UIKit
 
-extension QHPDFView: UIPageViewControllerDataSource {
+enum QHGoType {
+    case forward
+    case backward
+}
+
+extension QHPDFView: UIPageViewControllerDataSource, UIPageViewControllerDelegate, UIGestureRecognizerDelegate {
     
     private func p_indexOf(viewController: QHPageViewController) -> Int {
         return viewController.index
     }
     
-    private func p_goPageViewControllerAt(index: Int) -> UIViewController? {
-        print("index1 == \(index)")
+    private func p_goPageViewControllerAt(index: Int) -> QHPageViewController? {
         if let vc = p_pageViewControllerAt(index: index) {
-            print("index2 == \(index)")
             currentIndex = index
             dataSource?.showInPDFPage(view: self, index: currentIndex)
             return vc
@@ -25,7 +28,16 @@ extension QHPDFView: UIPageViewControllerDataSource {
         return nil
     }
     
-    private func p_pageViewControllerAt(index: Int) -> UIViewController? {
+    private func p_goPage(currentViewController: QHPageViewController, incrementIndex: Int) -> QHPageViewController? {
+        if pageIsAnimating == true {
+            return nil
+        }
+        let index = p_indexOf(viewController: currentViewController) + incrementIndex
+        let vc = p_goPageViewControllerAt(index: index)
+        return vc
+    }
+    
+    private func p_pageViewControllerAt(index: Int) -> QHPageViewController? {
         if let doc = document {
             let count = doc.numberOfPages
             if index > 0, index <= count {
@@ -51,6 +63,7 @@ extension QHPDFView: UIPageViewControllerDataSource {
         if let pageVC = pageViewController {
             pageVC.view.frame = rect
             pageVC.dataSource = self
+            pageVC.delegate = self
             superViewController.addChildViewController(pageVC)
             self.addSubview(pageVC.view)
             pageVC.didMove(toParentViewController: superViewController)
@@ -70,13 +83,21 @@ extension QHPDFView: UIPageViewControllerDataSource {
     // MARK - UIPageViewControllerDataSource
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        let index = p_indexOf(viewController: viewController as! QHPageViewController) - 1
-        return p_goPageViewControllerAt(index: index)
+        return p_goPage(currentViewController: viewController as! QHPageViewController, incrementIndex: -1)
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        let index = p_indexOf(viewController: viewController as! QHPageViewController) + 1
-        return p_goPageViewControllerAt(index: index)
+        return p_goPage(currentViewController: viewController as! QHPageViewController, incrementIndex: 1)
+    }
+    
+    // MARK - UIPageViewControllerDelegate
+    
+    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+        pageIsAnimating = true
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        pageIsAnimating = false
     }
     
 }

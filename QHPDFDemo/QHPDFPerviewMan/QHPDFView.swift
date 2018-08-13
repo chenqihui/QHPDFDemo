@@ -27,6 +27,8 @@ class QHPDFView: UIView, UIScrollViewDelegate, QHPDFCellViewDocumentDelegate {
     var pageViewController: UIPageViewController?
     var document: CGPDFDocument?
     var currentIndex: Int = 0
+    // [ios - UIPageViewController transition 'Unbalanced calls to begin/end appearance transitions for ' - Stack Overflow](https://stackoverflow.com/questions/13248282/uipageviewcontroller-transition-unbalanced-calls-to-begin-end-appearance-transi)
+    var pageIsAnimating: Bool = false
     
     private var originScale: CGFloat = 0
     

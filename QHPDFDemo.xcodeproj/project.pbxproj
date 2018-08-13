@@ -10,7 +10,6 @@
 		743912472119918500472B63 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743912462119918500472B63 /* AppDelegate.swift */; };
 		743912492119918500472B63 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743912482119918500472B63 /* ViewController.swift */; };
 		7439124C2119918500472B63 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7439124A2119918500472B63 /* Main.storyboard */; };
-		7439124E2119918900472B63 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7439124D2119918900472B63 /* Assets.xcassets */; };
 		743912512119918900472B63 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7439124F2119918900472B63 /* LaunchScreen.storyboard */; };
 		7439125A2119963600472B63 /* mp4.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 743912592119963600472B63 /* mp4.pdf */; };
 		7439125D211999FC00472B63 /* PDFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7439125C211999FC00472B63 /* PDFViewController.swift */; };
@@ -20,6 +19,7 @@
 		74391269211BEE4100472B63 /* QHPDFView+Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74391268211BEE4100472B63 /* QHPDFView+Page.swift */; };
 		74A3AC15211D7506004B234C /* PDFKitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A3AC14211D7506004B234C /* PDFKitViewController.swift */; };
 		74A3AC1721209E81004B234C /* PDF32000_2008.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 74A3AC1621209E81004B234C /* PDF32000_2008.pdf */; };
+		74A3AC1921212F3D004B234C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74A3AC1821212F3D004B234C /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +27,6 @@
 		743912462119918500472B63 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		743912482119918500472B63 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7439124B2119918500472B63 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		7439124D2119918900472B63 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		743912502119918900472B63 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		743912522119918900472B63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		743912592119963600472B63 /* mp4.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = mp4.pdf; sourceTree = "<group>"; };
@@ -38,6 +37,7 @@
 		74391268211BEE4100472B63 /* QHPDFView+Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QHPDFView+Page.swift"; sourceTree = "<group>"; };
 		74A3AC14211D7506004B234C /* PDFKitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFKitViewController.swift; sourceTree = "<group>"; };
 		74A3AC1621209E81004B234C /* PDF32000_2008.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = PDF32000_2008.pdf; sourceTree = "<group>"; };
+		74A3AC1821212F3D004B234C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,8 +77,8 @@
 				7439125C211999FC00472B63 /* PDFViewController.swift */,
 				74A3AC14211D7506004B234C /* PDFKitViewController.swift */,
 				7439124A2119918500472B63 /* Main.storyboard */,
-				7439124D2119918900472B63 /* Assets.xcassets */,
 				7439124F2119918900472B63 /* LaunchScreen.storyboard */,
+				74A3AC1821212F3D004B234C /* Assets.xcassets */,
 				743912522119918900472B63 /* Info.plist */,
 			);
 			path = QHPDFDemo;
@@ -165,8 +165,8 @@
 				7439125A2119963600472B63 /* mp4.pdf in Resources */,
 				743912512119918900472B63 /* LaunchScreen.storyboard in Resources */,
 				74A3AC1721209E81004B234C /* PDF32000_2008.pdf in Resources */,
-				7439124E2119918900472B63 /* Assets.xcassets in Resources */,
 				7439124C2119918500472B63 /* Main.storyboard in Resources */,
+				74A3AC1921212F3D004B234C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
