@@ -14,29 +14,22 @@ protocol QHPDFCellViewDocumentDelegate: NSObjectProtocol {
 
 class QHPDFCellView: UIView {
     
-    private var spaceHeight: CGFloat = 0
-    
     weak var delegate: QHPDFCellViewDocumentDelegate?
     
-    var scale: CGFloat = 1
     var index: Int = 0
     
     deinit {
         #if DEBUG
-//        print("[\(type(of: self)) \(#function)]")
+        print("[\(type(of: self)) \(#function)]")
         #endif
     }
     
-    init(frame: CGRect, scale: CGFloat, spaceHeight: CGFloat) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
-        self.scale = scale
-        self.spaceHeight = spaceHeight
     }
     
-    init(frame: CGRect, scale: CGFloat, spaceHeight: CGFloat, index: Int) {
+    init(frame: CGRect, index: Int) {
         super.init(frame: frame)
-        self.scale = scale
-        self.spaceHeight = spaceHeight
         self.index = index
     }
     
@@ -48,33 +41,15 @@ class QHPDFCellView: UIView {
         super.draw(rect)
     }
     
-    /*
-     可修改为绘制前后几页的优化，当总页数过多的时候
-     */
     override func draw(_ layer: CALayer, in ctx: CGContext) {
         ctx.setFillColor(UIColor.white.cgColor)
         ctx.fill(bounds)
+        if index <= 0 {
+            return
+        }
         if let document = delegate?.documentForPDF(cell: self) {
             let count = document.numberOfPages
-            if index == 0 {
-                for index in 1...count {
-                    if let page = document.page(at: index) {
-                        let rect = page.getBoxRect(.cropBox)
-                        ctx.saveGState()
-                        ctx.translateBy(x: 0, y: rect.height * CGFloat(index) * scale + spaceHeight * CGFloat(index - 1))
-                        ctx.scaleBy(x: 1, y: -1)
-//                        ctx.scaleBy(x: scale, y: scale)
-                        ctx.drawPDFPage(page)
-                        
-                        ctx.addRect(CGRect(x: 0, y: rect.height, width: rect.width, height: spaceHeight))
-                        ctx.setFillColor(UIColor.lightGray.cgColor)
-                        ctx.fillPath()
-                        
-                        ctx.restoreGState()
-                    }
-                }
-            }
-            else if index > 0, index <= count {
+            if index > 0, index <= count {
                 if let page = document.page(at: index) {
                     ctx.translateBy(x: 0, y: bounds.size.height)
                     ctx.scaleBy(x: 1, y: -1)
@@ -87,6 +62,10 @@ class QHPDFCellView: UIView {
                 }
             }
         }
+    }
+    
+    func refresh() {
+        setNeedsDisplay()
     }
 
 }

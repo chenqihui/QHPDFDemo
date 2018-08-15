@@ -21,27 +21,21 @@ enum QHPDFViewShowType {
 
 class QHPDFView: UIView, UIScrollViewDelegate, QHPDFCellViewDocumentDelegate {
     
-    private var scrollView: UIScrollView?
-    private var cellView: QHPDFCellView?
-    
-    var pageViewController: UIPageViewController?
-    var document: CGPDFDocument?
+    var pageHeight: CGFloat = 0
+    private(set) var document: CGPDFDocument?
     var currentIndex: Int = 0
-    // [ios - UIPageViewController transition 'Unbalanced calls to begin/end appearance transitions for ' - Stack Overflow](https://stackoverflow.com/questions/13248282/uipageviewcontroller-transition-unbalanced-calls-to-begin-end-appearance-transi)
-    var pageIsAnimating: Bool = false
-    
-    private var originScale: CGFloat = 0
-    
-    private var pdfPageHeight: CGFloat = 0
     
     weak var dataSource: QHPDFDataSource?
-    /*
-     使用 原生的导航顶部 如iPhone X会多出 -88.0 的高度
-     建议在 UIViewController 上套一个 UIView 再添加，就可以忽略
-     */
-    var originOffset: CGFloat = 0
-    var spaceHeight: CGFloat = 0
     var showType: QHPDFViewShowType = .list
+    
+    // Page
+    var pageViewController: UIPageViewController?
+    var pageIsAnimating: Bool = false
+    
+    // Collection
+    var collectionView: UICollectionView?
+    var collectionScrollView: UIScrollView?
+    var spaceHeight: CGFloat = 0
     
     deinit {
         #if DEBUG
@@ -61,51 +55,15 @@ class QHPDFView: UIView, UIScrollViewDelegate, QHPDFCellViewDocumentDelegate {
     private func p_setup() {
     }
     
-    private func p_addScrollView() {
-        if scrollView == nil {
-            scrollView = UIScrollView(frame: self.bounds)
-            if let scrollV = scrollView {
-                scrollV.delegate = self
-                scrollV.maximumZoomScale = 4
-                self.addSubview(scrollV)
-            }
-        }
-        if let docu = document {
-            if let page = docu.page(at: 1) {
-                let rect = page.getBoxRect(.cropBox)
-                let count = docu.numberOfPages
-                originScale = bounds.size.width / rect.width
-                
-                if let scrollV = scrollView {
-                    pdfPageHeight = rect.size.height * originScale + spaceHeight
-                    let height = pdfPageHeight * CGFloat(count)
-                    scrollV.contentSize.height = height
-                    
-                    if let cellV = cellView {
-                        cellV.removeFromSuperview();
-                    }
-                    cellView = nil
-                    
-                    var frame = scrollV.bounds
-                    frame.size.height = height
-                    let cellV = QHPDFCellView(frame: frame, scale: originScale, spaceHeight: spaceHeight)
-                    cellV.delegate = self
-                    scrollV.addSubview(cellV)
-                    cellView = cellV
-                }
-            }
-        }
-    }
-    
     private func p_reload() {
         if let url = dataSource?.perviewPDF(view: self) {
             if let document = CGPDFDocument(url as CFURL) {
                 self.document = document
                 if showType == .list {
-                    p_addScrollView()
+                    p_reloadCollectionView()
                 }
                 else if showType == .page {
-                    addPageVC()
+                    p_reloadPageView()
                 }
             }
         }
@@ -118,20 +76,33 @@ class QHPDFView: UIView, UIScrollViewDelegate, QHPDFCellViewDocumentDelegate {
     // MARK: - UIScrollViewDelegate
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard pdfPageHeight > 0 else {
+        guard scrollView == collectionScrollView else {
             return
         }
-        let y = scrollView.contentOffset.y + originOffset
-//        // 以页面 bottom 到达屏幕底部为翻页
-//        let currentIndex = ((y + self.frame.size.height) / scrollView.zoomScale) / pdfPageHeight
+        guard pageHeight > 0 else {
+            return
+        }
+        let y = scrollView.contentOffset.y
+        //        // 以页面 bottom 到达屏幕底部为翻页
+        //        let currentIndex = ((y + self.frame.size.height) / scrollView.zoomScale) / pdfPageHeight
         // 以页面 top 到达屏幕顶部为翻页
-        let currentIndex = Int((y / scrollView.zoomScale) / pdfPageHeight) + 1
-        self.currentIndex = currentIndex
-        dataSource?.showInPDFPage(view: self, index: currentIndex)
+        let cIndex = Int((y / scrollView.zoomScale) / pageHeight) + 1
+        
+        if let docu = document {
+            let count = docu.numberOfPages
+            guard currentIndex != cIndex, cIndex > 0, cIndex <= count else {
+                return
+            }
+            currentIndex = cIndex
+            dataSource?.showInPDFPage(view: self, index: currentIndex)
+        }
     }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return cellView
+        if scrollView == collectionScrollView {
+            return collectionView
+        }
+        return nil
     }
     
     // MARK: - QHPDFCellViewDocumentDelegate

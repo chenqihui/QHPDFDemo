@@ -8,11 +8,6 @@
 
 import UIKit
 
-enum QHGoType {
-    case forward
-    case backward
-}
-
 extension QHPDFView: UIPageViewControllerDataSource, UIPageViewControllerDelegate, UIGestureRecognizerDelegate {
     
     private func p_indexOf(viewController: QHPageViewController) -> Int {
@@ -52,6 +47,21 @@ extension QHPDFView: UIPageViewControllerDataSource, UIPageViewControllerDelegat
         return nil
     }
     
+    func p_reloadPageView() {
+        if let pageVC = pageViewController {
+            if let initViewController = p_pageViewControllerAt(index: 1) {
+                currentIndex = 1
+                pageVC.setViewControllers([initViewController], direction: .reverse, animated: false) { (bResult) in
+                    if bResult == true {
+                        self.dataSource?.showInPDFPage(view: self, index: self.currentIndex)
+                    }
+                }
+            }
+        }
+    }
+    
+    // MARK - Public
+    
     func addPageViewControllerIn(superViewController: UIViewController, rect: CGRect, transitionStyle style: UIPageViewControllerTransitionStyle, navigationOrientation: UIPageViewControllerNavigationOrientation) {
         if let pageVC = pageViewController {
             pageVC.removeFromParentViewController()
@@ -67,16 +77,6 @@ extension QHPDFView: UIPageViewControllerDataSource, UIPageViewControllerDelegat
             superViewController.addChildViewController(pageVC)
             self.addSubview(pageVC.view)
             pageVC.didMove(toParentViewController: superViewController)
-        }
-    }
-    
-    func addPageVC() {
-        if let pageVC = pageViewController {
-            if let initViewController = p_pageViewControllerAt(index: 1) {
-                currentIndex = 1
-                pageVC.setViewControllers([initViewController], direction: .reverse, animated: false) { (bResult) in
-                }
-            }
         }
     }
     
@@ -105,15 +105,17 @@ extension QHPDFView: UIPageViewControllerDataSource, UIPageViewControllerDelegat
 }
 
 class QHPageViewController: UIViewController {
+    private(set) var cellView: QHPDFCellView?
+    
     var index: Int = 0
-    var cellView: QHPDFCellView?
     
     override func viewDidLoad() {
     }
     
     func addPDFCellView(delegate: QHPDFCellViewDocumentDelegate, rect: CGRect) {
-        cellView = QHPDFCellView(frame: rect, scale: 1, spaceHeight: 0, index: index)
-        cellView?.delegate = delegate
-        self.view.addSubview(cellView!)
+        let cellV = QHPDFCellView(frame: rect, index: index)
+        cellV.delegate = delegate
+        view.addSubview(cellV)
+        cellView = cellV
     }
 }

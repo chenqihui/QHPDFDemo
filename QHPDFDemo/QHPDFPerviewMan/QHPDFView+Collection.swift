@@ -1,0 +1,106 @@
+//
+//  QHPDFView+Collection.swift
+//  QHPDFDemo
+//
+//  Created by Anakin chen on 2018/8/14.
+//  Copyright © 2018年 Chen Network Technology. All rights reserved.
+//
+
+import UIKit
+
+extension QHPDFView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    static let CollectionViewCellIdentifier = "QHCollectionViewCell"
+    
+    func p_reloadCollectionView() {
+        if let docu = document {
+            if let page = docu.page(at: 1) {
+                let rect = page.getBoxRect(.cropBox)
+                let originScale = bounds.size.width / rect.width
+                
+                pageHeight = rect.size.height * originScale
+                
+                collectionView?.reloadData()
+            }
+        }
+    }
+    
+    // MARK - Public
+    
+    func addCollectionViewIn(superViewController: UIViewController, rect: CGRect) {
+        let scrollV = UIScrollView(frame: rect)
+        scrollV.maximumZoomScale = 4
+        scrollV.delegate = self
+        addSubview(scrollV)
+        collectionScrollView = scrollV
+        
+        let layout = UICollectionViewFlowLayout()
+//        layout.itemSize = CGSize.zero
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        layout.sectionInset = UIEdgeInsets.zero
+        let collectionV = UICollectionView(frame: scrollV.bounds, collectionViewLayout: layout)
+        collectionV.backgroundColor = UIColor.white
+        collectionV.maximumZoomScale = 4
+        collectionV.dataSource = self
+        collectionV.delegate = self
+        collectionV.register(QHPDFCollectionViewCell.self, forCellWithReuseIdentifier: QHPDFView.CollectionViewCellIdentifier)
+        scrollV.addSubview(collectionV)
+        collectionView = collectionV
+        
+        if let gesture = collectionV.pinchGestureRecognizer {
+            collectionV.removeGestureRecognizer(gesture)
+        }
+    }
+    
+    // MARK - UICollectionViewDataSource
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if let docu = document {
+            let count = docu.numberOfPages
+            return count
+        }
+        return 0
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: QHPDFView.CollectionViewCellIdentifier, for: indexPath) as! QHPDFCollectionViewCell
+        cell.pdfCellView.delegate = self
+        cell.refreshAt(index: (indexPath.row + 1))
+        return cell
+    }
+    
+    // MARK - UICollectionViewDelegateFlowLayout
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.size.width, height: pageHeight)
+    }
+    
+    // MARK - UICollectionViewDelegate
+}
+
+class QHPDFCollectionViewCell: UICollectionViewCell {
+    private(set) var pdfCellView: QHPDFCellView!
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        pdfCellView = QHPDFCellView(frame: bounds)
+        addSubview(pdfCellView)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK - Public
+    
+    func refreshAt(index: Int) {
+        pdfCellView.index = index
+        pdfCellView.refresh()
+    }
+}

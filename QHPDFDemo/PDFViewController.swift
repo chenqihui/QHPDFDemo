@@ -54,7 +54,8 @@ class PDFViewController: UIViewController, QHPDFDataSource {
             pdfView.addPageViewControllerIn(superViewController: self, rect: rect, transitionStyle: s, navigationOrientation: .horizontal)
         }
         else {
-            pdfView.spaceHeight = 10
+//            pdfView.spaceHeight = 10
+            pdfView.addCollectionViewIn(superViewController: self, rect: rect)
             pdfView.showType = .list
         }
         contentView.addSubview(pdfView)
