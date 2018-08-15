@@ -98,7 +98,13 @@ class QHPDFView: UIView, UIScrollViewDelegate, QHPDFCellViewDocumentDelegate {
         }
     }
     
-    
+//    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
+//        if scrollView == collectionScrollView {
+//            var size = scrollView.contentSize
+//            size.height = 0
+//            scrollView.contentSize = size
+//        }
+//    }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         if scrollView == collectionScrollView {
