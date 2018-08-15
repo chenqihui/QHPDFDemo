@@ -62,14 +62,13 @@ extension QHPDFView: UIPageViewControllerDataSource, UIPageViewControllerDelegat
     
     // MARK - Public
     
-    func addPageViewControllerIn(superViewController: UIViewController, rect: CGRect, transitionStyle style: UIPageViewControllerTransitionStyle, navigationOrientation: UIPageViewControllerNavigationOrientation) {
+    func addPageViewIn(superViewController: UIViewController, rect: CGRect, config: (() -> UIPageViewController)) {
+        showType = .page
         if let pageVC = pageViewController {
             pageVC.removeFromParentViewController()
             pageVC.view.removeFromSuperview()
         }
-        pageViewController = nil
-        let options = [UIPageViewControllerOptionSpineLocationKey: UIPageViewControllerSpineLocation.min.rawValue]
-        pageViewController = UIPageViewController(transitionStyle: style, navigationOrientation: navigationOrientation, options: options)
+        pageViewController = config()
         if let pageVC = pageViewController {
             pageVC.view.frame = rect
             pageVC.dataSource = self
@@ -97,9 +96,9 @@ extension QHPDFView: UIPageViewControllerDataSource, UIPageViewControllerDelegat
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        if finished == true, completed == true {
+//        if finished == true, completed == true {
             pageIsAnimating = false
-        }
+//        }
     }
     
 }

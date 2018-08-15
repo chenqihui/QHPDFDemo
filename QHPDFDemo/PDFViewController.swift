@@ -47,17 +47,20 @@ class PDFViewController: UIViewController, QHPDFDataSource {
     private func p_addPDFView(transitionStyle style: UIPageViewControllerTransitionStyle?) {
         let rect = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height - contentView.frame.origin.y)
         let pdfView = QHPDFView(frame: rect)
-//        pdfView.originOffset = 88
         pdfView.dataSource = self
-        if let s = style {
-            pdfView.showType = .page
-            pdfView.addPageViewControllerIn(superViewController: self, rect: rect, transitionStyle: s, navigationOrientation: .horizontal)
+        if let tStyle = style {
+            pdfView.addPageViewIn(superViewController: self, rect: rect) { () -> UIPageViewController in
+                let options = [UIPageViewControllerOptionSpineLocationKey: UIPageViewControllerSpineLocation.min.rawValue]
+                let pageVC = UIPageViewController(transitionStyle: tStyle, navigationOrientation: .horizontal, options: options)
+                return pageVC
+            }
         }
         else {
-//            pdfView.spaceHeight = 10
-            pdfView.addCollectionViewIn(superViewController: self, rect: rect)
-            pdfView.showType = .list
+            pdfView.addCollectionViewIn(rect: rect) { (nframe) -> UICollectionView? in
+                return nil
+            }
         }
+        
         contentView.addSubview(pdfView)
         pdfView.reload()
     }

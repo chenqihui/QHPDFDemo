@@ -76,7 +76,7 @@ class QHPDFView: UIView, UIScrollViewDelegate, QHPDFCellViewDocumentDelegate {
     // MARK: - UIScrollViewDelegate
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard scrollView == collectionScrollView else {
+        guard scrollView == collectionView else {
             return
         }
         guard pageHeight > 0 else {
@@ -97,6 +97,8 @@ class QHPDFView: UIView, UIScrollViewDelegate, QHPDFCellViewDocumentDelegate {
             dataSource?.showInPDFPage(view: self, index: currentIndex)
         }
     }
+    
+    
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         if scrollView == collectionScrollView {

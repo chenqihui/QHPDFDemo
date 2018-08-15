@@ -27,29 +27,37 @@ extension QHPDFView: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     
     // MARK - Public
     
-    func addCollectionViewIn(superViewController: UIViewController, rect: CGRect) {
+    func addCollectionViewIn(rect: CGRect, config: ((CGRect) -> UICollectionView?)) {
+        showType = .list
+        
         let scrollV = UIScrollView(frame: rect)
+        scrollV.contentSize = CGSize(width: rect.width, height: 0)
+        scrollV.bouncesZoom = false
         scrollV.maximumZoomScale = 4
         scrollV.delegate = self
         addSubview(scrollV)
         collectionScrollView = scrollV
         
-        let layout = UICollectionViewFlowLayout()
-//        layout.itemSize = CGSize.zero
-        layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 0
-        layout.sectionInset = UIEdgeInsets.zero
-        let collectionV = UICollectionView(frame: scrollV.bounds, collectionViewLayout: layout)
-        collectionV.backgroundColor = UIColor.white
-        collectionV.maximumZoomScale = 4
-        collectionV.dataSource = self
-        collectionV.delegate = self
-        collectionV.register(QHPDFCollectionViewCell.self, forCellWithReuseIdentifier: QHPDFView.CollectionViewCellIdentifier)
-        scrollV.addSubview(collectionV)
-        collectionView = collectionV
+        var collectionV = config(scrollV.bounds)
+        if collectionV == nil {
+            let layout = UICollectionViewFlowLayout()
+            layout.minimumInteritemSpacing = 0
+            layout.minimumLineSpacing = 0
+            layout.sectionInset = UIEdgeInsets.zero
+            collectionV = UICollectionView(frame: scrollV.bounds, collectionViewLayout: layout)
+            collectionV!.backgroundColor = UIColor.white
+        }
         
-        if let gesture = collectionV.pinchGestureRecognizer {
-            collectionV.removeGestureRecognizer(gesture)
+        if let cv = collectionV {
+            cv.dataSource = self
+            cv.delegate = self
+            cv.register(QHPDFCollectionViewCell.self, forCellWithReuseIdentifier: QHPDFView.CollectionViewCellIdentifier)
+            scrollV.addSubview(cv)
+            collectionView = cv
+            
+            if let gesture = cv.pinchGestureRecognizer {
+                cv.removeGestureRecognizer(gesture)
+            }
         }
     }
     
