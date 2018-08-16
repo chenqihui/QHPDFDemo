@@ -85,7 +85,7 @@ extension QHPDFView {
                     let cellV = QHPDFCellView(frame: rect, index: idx)
                     cellV.delegate = self
                     cellV.tag = idx
-                    //                            print("add == \(idx)")
+//                    print("add == \(idx)")
                     contenV.addSubview(cellV)
                 }
             }
@@ -105,7 +105,7 @@ extension QHPDFView {
                     if removeIndexsArray.count > QHPDFView.scrollPageControlIndexCount {
                         for idx in removeIndexsArray {
                             if let view = contenV.viewWithTag(idx) {
-                                //                                        print("remove == \(idx)")
+//                                print("remove == \(idx)")
                                 view.removeFromSuperview()
                             }
                             if let index = showIndexsArray.index(of: idx) {

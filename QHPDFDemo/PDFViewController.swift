@@ -50,6 +50,7 @@ class PDFViewController: UIViewController, QHPDFDataSource {
         let pdfView = QHPDFView(frame: rect)
         pdfView.dataSource = self
         if let tStyle = style {
+            // page
             pdfView.addPageViewIn(superViewController: self, rect: rect) { () -> UIPageViewController in
                 let options = [UIPageViewControllerOptionSpineLocationKey: UIPageViewControllerSpineLocation.min.rawValue]
                 let pageVC = UIPageViewController(transitionStyle: tStyle, navigationOrientation: .horizontal, options: options)
@@ -57,9 +58,12 @@ class PDFViewController: UIViewController, QHPDFDataSource {
             }
         }
         else {
+            // collect
 //            pdfView.addCollectionViewIn(rect: rect) { (nframe) -> UICollectionView? in
 //                return nil
 //            }
+            
+            // scroll
             pdfView.addScrollViewIn(rect: rect)
         }
         
