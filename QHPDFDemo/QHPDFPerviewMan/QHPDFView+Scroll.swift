@@ -67,66 +67,49 @@ extension QHPDFView {
             if count > 0 {
                 let minIdx = max(1, currentIndex - QHPDFView.scrollPageIncrementIndex)
                 let maxIdx = min(currentIndex + QHPDFView.scrollPageIncrementIndex, count)
-                
-                if let contenV = contentScrollView {
-//                    let newHeight = pageHeight * CGFloat(maxIdx)
-//                    var newFrame = contenV.frame
-//                    if newHeight > newFrame.size.height {
-//                        newFrame.size.height = newHeight
-//                        contenV.frame = newFrame
-//                    }
-                    
-                    if let scrollV = mainScrollView {
-                        for idx in minIdx...maxIdx {
-                            if showIndexsArray.contains(idx) == true {
-                                continue
-                            }
-                            showIndexsArray.append(idx)
-                            let rect = CGRect(x: 0, y: pageHeight * CGFloat(idx - 1), width: scrollV.frame.size.width, height: pageHeight)
-                            let cellV = QHPDFCellView(frame: rect, index: idx)
-                            cellV.delegate = self
-                            cellV.tag = idx
-//                            print("add == \(idx)")
-                            contenV.addSubview(cellV)
-                        }
-//                        var addIndexsArray = [Int]()
-//                        for idx in minIdx...maxIdx {
-//                            if showIndexsArray.contains(idx) == true {
-//                                continue
-//                            }
-//                            addIndexsArray.append(idx)
-//                        }
-//                        if addIndexsArray.count > QHPDFView.scrollPageControlIndexCount {
-//                            for idx in addIndexsArray {
-//                                showIndexsArray.append(idx)
-//                                let rect = CGRect(x: 0, y: pageHeight * CGFloat(idx - 1), width: scrollV.frame.size.width, height: pageHeight)
-//                                let cellV = QHPDFCellView(frame: rect, index: idx)
-//                                cellV.delegate = self
-//                                cellV.tag = idx
-//                                print("add == \(idx)")
-//                                contenV.addSubview(cellV)
-//                            }
-//                        }
+                p_addPages(minIdx: minIdx, maxIdx: maxIdx)
+                p_removePages(minIdx: minIdx, maxIdx: maxIdx)
+            }
+        }
+    }
+    
+    private func p_addPages(minIdx: Int, maxIdx: Int) {
+        if let contenV = contentScrollView {
+            if let scrollV = mainScrollView {
+                for idx in minIdx...maxIdx {
+                    if showIndexsArray.contains(idx) == true {
+                        continue
                     }
-                    
-                    if bJustShowIndexInRange == true {
-                        if currentIndex > QHPDFView.scrollPageIncrementIndex {
-                            let removeIndexsArray = showIndexsArray.filter { (idx: Int) -> Bool in
-                                if idx > maxIdx || idx < minIdx {
-                                    return true
-                                }
-                                return false
+                    showIndexsArray.append(idx)
+                    let rect = CGRect(x: 0, y: pageHeight * CGFloat(idx - 1), width: scrollV.frame.size.width, height: pageHeight)
+                    let cellV = QHPDFCellView(frame: rect, index: idx)
+                    cellV.delegate = self
+                    cellV.tag = idx
+                    //                            print("add == \(idx)")
+                    contenV.addSubview(cellV)
+                }
+            }
+        }
+    }
+    
+    private func p_removePages(minIdx: Int, maxIdx: Int) {
+        if let contenV = contentScrollView {
+            if bJustShowIndexInRange == true {
+                if currentIndex > QHPDFView.scrollPageIncrementIndex {
+                    let removeIndexsArray = showIndexsArray.filter { (idx: Int) -> Bool in
+                        if idx > maxIdx || idx < minIdx {
+                            return true
+                        }
+                        return false
+                    }
+                    if removeIndexsArray.count > QHPDFView.scrollPageControlIndexCount {
+                        for idx in removeIndexsArray {
+                            if let view = contenV.viewWithTag(idx) {
+                                //                                        print("remove == \(idx)")
+                                view.removeFromSuperview()
                             }
-                            if removeIndexsArray.count > QHPDFView.scrollPageControlIndexCount {
-                                for idx in removeIndexsArray {
-                                    if let view = contenV.viewWithTag(idx) {
-//                                        print("remove == \(idx)")
-                                        view.removeFromSuperview()
-                                    }
-                                    if let index = showIndexsArray.index(of: idx) {
-                                        showIndexsArray.remove(at: index)
-                                    }
-                                }
+                            if let index = showIndexsArray.index(of: idx) {
+                                showIndexsArray.remove(at: index)
                             }
                         }
                     }

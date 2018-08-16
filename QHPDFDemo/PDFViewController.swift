@@ -90,7 +90,7 @@ class PDFViewController: UIViewController, QHPDFDataSource {
     // MARK - QHPDFDataSource
     
     func perviewPDF(view: UIView) -> CFURL? {
-        guard let path = Bundle.main.path(forResource: "mp4", ofType: "pdf") else {
+        guard let path = Bundle.main.path(forResource: "PDF32000_2008", ofType: "pdf") else {
             return nil
         }
         let url = URL(fileURLWithPath: path)
