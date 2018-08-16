@@ -8,27 +8,11 @@
 
 import UIKit
 
-extension QHPDFView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
-    static let CollectionViewCellIdentifier = "QHCollectionViewCell"
-    
-    func p_reloadCollectionView() {
-        if let docu = document {
-            if let page = docu.page(at: 1) {
-                let rect = page.getBoxRect(.cropBox)
-                let originScale = bounds.size.width / rect.width
-                
-                pageHeight = rect.size.height * originScale
-                
-                collectionView?.reloadData()
-            }
-        }
-    }
-    
-    // MARK - Public
-    
+// MARK - Public
+
+extension QHPDFView {
     func addCollectionViewIn(rect: CGRect, config: ((CGRect) -> UICollectionView?)) {
-        showType = .list
+        showType = .collect
         
         let scrollV = UIScrollView(frame: rect)
         scrollV.contentSize = CGSize(width: rect.width, height: 0)
@@ -57,6 +41,24 @@ extension QHPDFView: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
             
             if let gesture = cv.pinchGestureRecognizer {
                 cv.removeGestureRecognizer(gesture)
+            }
+        }
+    }
+}
+
+extension QHPDFView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    static let CollectionViewCellIdentifier = "QHCollectionViewCell"
+    
+    func p_reloadCollectionView() {
+        if let docu = document {
+            if let page = docu.page(at: 1) {
+                let rect = page.getBoxRect(.cropBox)
+                let originScale = bounds.size.width / rect.width
+                
+                pageHeight = rect.size.height * originScale
+                
+                collectionView?.reloadData()
             }
         }
     }

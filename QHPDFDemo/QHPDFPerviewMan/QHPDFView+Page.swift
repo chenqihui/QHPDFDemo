@@ -8,6 +8,28 @@
 
 import UIKit
 
+// MARK - Public
+
+extension QHPDFView {    
+    func addPageViewIn(superViewController: UIViewController, rect: CGRect, config: (() -> UIPageViewController)) {
+        showType = .page
+        
+        if let pageVC = pageViewController {
+            pageVC.removeFromParentViewController()
+            pageVC.view.removeFromSuperview()
+        }
+        pageViewController = config()
+        if let pageVC = pageViewController {
+            pageVC.view.frame = rect
+            pageVC.dataSource = self
+            pageVC.delegate = self
+            superViewController.addChildViewController(pageVC)
+            self.addSubview(pageVC.view)
+            pageVC.didMove(toParentViewController: superViewController)
+        }
+    }
+}
+
 extension QHPDFView: UIPageViewControllerDataSource, UIPageViewControllerDelegate, UIGestureRecognizerDelegate {
     
     private func p_indexOf(viewController: QHPageViewController) -> Int {
@@ -57,25 +79,6 @@ extension QHPDFView: UIPageViewControllerDataSource, UIPageViewControllerDelegat
                     }
                 }
             }
-        }
-    }
-    
-    // MARK - Public
-    
-    func addPageViewIn(superViewController: UIViewController, rect: CGRect, config: (() -> UIPageViewController)) {
-        showType = .page
-        if let pageVC = pageViewController {
-            pageVC.removeFromParentViewController()
-            pageVC.view.removeFromSuperview()
-        }
-        pageViewController = config()
-        if let pageVC = pageViewController {
-            pageVC.view.frame = rect
-            pageVC.dataSource = self
-            pageVC.delegate = self
-            superViewController.addChildViewController(pageVC)
-            self.addSubview(pageVC.view)
-            pageVC.didMove(toParentViewController: superViewController)
         }
     }
     

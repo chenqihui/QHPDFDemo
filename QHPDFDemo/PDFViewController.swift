@@ -27,6 +27,7 @@ class PDFViewController: UIViewController, QHPDFDataSource {
         self.view.backgroundColor = UIColor.white
         // Do any additional setup after loading the view.
         
+        // custome add
         switch type {
         case .webView:
             p_addPDFWebView()
@@ -56,9 +57,10 @@ class PDFViewController: UIViewController, QHPDFDataSource {
             }
         }
         else {
-            pdfView.addCollectionViewIn(rect: rect) { (nframe) -> UICollectionView? in
-                return nil
-            }
+//            pdfView.addCollectionViewIn(rect: rect) { (nframe) -> UICollectionView? in
+//                return nil
+//            }
+            pdfView.addScrollViewIn(rect: rect)
         }
         
         contentView.addSubview(pdfView)
@@ -88,7 +90,7 @@ class PDFViewController: UIViewController, QHPDFDataSource {
     // MARK - QHPDFDataSource
     
     func perviewPDF(view: UIView) -> CFURL? {
-        guard let path = Bundle.main.path(forResource: "PDF32000_2008", ofType: "pdf") else {
+        guard let path = Bundle.main.path(forResource: "mp4", ofType: "pdf") else {
             return nil
         }
         let url = URL(fileURLWithPath: path)

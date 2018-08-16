@@ -15,8 +15,10 @@ protocol QHPDFDataSource: NSObjectProtocol {
 }
 
 enum QHPDFViewShowType {
-    case list
+    case none
+    case scroll
     case page
+    case collect
 }
 
 class QHPDFView: UIView, UIScrollViewDelegate, QHPDFCellViewDocumentDelegate {
@@ -26,7 +28,7 @@ class QHPDFView: UIView, UIScrollViewDelegate, QHPDFCellViewDocumentDelegate {
     var currentIndex: Int = 0
     
     weak var dataSource: QHPDFDataSource?
-    var showType: QHPDFViewShowType = .list
+    var showType: QHPDFViewShowType = .none
     
     // Page
     var pageViewController: UIPageViewController?
@@ -36,6 +38,12 @@ class QHPDFView: UIView, UIScrollViewDelegate, QHPDFCellViewDocumentDelegate {
     var collectionView: UICollectionView?
     var collectionScrollView: UIScrollView?
     var spaceHeight: CGFloat = 0
+    
+    // Scroll
+    var mainScrollView: UIScrollView?
+    var contentScrollView: UIView?
+    lazy var showIndexsArray = [Int]()
+    var bJustShowIndexInRange = false
     
     deinit {
         #if DEBUG
@@ -59,42 +67,50 @@ class QHPDFView: UIView, UIScrollViewDelegate, QHPDFCellViewDocumentDelegate {
         if let url = dataSource?.perviewPDF(view: self) {
             if let document = CGPDFDocument(url as CFURL) {
                 self.document = document
-                if showType == .list {
-                    p_reloadCollectionView()
-                }
-                else if showType == .page {
+                switch showType {
+                case .scroll:
+                    p_reloadScrollView()
+                case .page:
                     p_reloadPageView()
+                case .collect:
+                    p_reloadCollectionView()
+                case .none:
+                    print("not show")
                 }
             }
         }
     }
+    
+    // MARK - Public
     
     func reload() {
         p_reload()
     }
     
-    // MARK: - UIScrollViewDelegate
+    // MARK - UIScrollViewDelegate
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard scrollView == collectionView else {
-            return
-        }
         guard pageHeight > 0 else {
             return
         }
-        let y = scrollView.contentOffset.y
-        //        // 以页面 bottom 到达屏幕底部为翻页
-        //        let currentIndex = ((y + self.frame.size.height) / scrollView.zoomScale) / pdfPageHeight
-        // 以页面 top 到达屏幕顶部为翻页
-        let cIndex = Int((y / scrollView.zoomScale) / pageHeight) + 1
-        
-        if let docu = document {
-            let count = docu.numberOfPages
-            guard currentIndex != cIndex, cIndex > 0, cIndex <= count else {
-                return
+        if scrollView == collectionView || scrollView == mainScrollView {
+            let y = scrollView.contentOffset.y
+            //        // 以页面 bottom 到达屏幕底部为翻页
+            //        let currentIndex = ((y + self.frame.size.height) / scrollView.zoomScale) / pdfPageHeight
+            // 以页面 top 到达屏幕顶部为翻页
+            let cIndex = Int((y / scrollView.zoomScale) / pageHeight) + 1
+            
+            if let docu = document {
+                let count = docu.numberOfPages
+                guard currentIndex != cIndex, cIndex > 0, cIndex <= count else {
+                    return
+                }
+                currentIndex = cIndex
+                if scrollView == mainScrollView {
+                       p_scrollViewRefresh()
+                }
+                dataSource?.showInPDFPage(view: self, index: currentIndex)
             }
-            currentIndex = cIndex
-            dataSource?.showInPDFPage(view: self, index: currentIndex)
         }
     }
     
@@ -110,10 +126,13 @@ class QHPDFView: UIView, UIScrollViewDelegate, QHPDFCellViewDocumentDelegate {
         if scrollView == collectionScrollView {
             return collectionView
         }
+        else if scrollView == mainScrollView {
+            return contentScrollView
+        }
         return nil
     }
     
-    // MARK: - QHPDFCellViewDocumentDelegate
+    // MARK - QHPDFCellViewDocumentDelegate
     
     func documentForPDF(cell: QHPDFCellView) -> CGPDFDocument? {
         return document

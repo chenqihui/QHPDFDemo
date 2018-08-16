@@ -21,6 +21,7 @@
 		74A3AC1721209E81004B234C /* PDF32000_2008.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 74A3AC1621209E81004B234C /* PDF32000_2008.pdf */; };
 		74A3AC1921212F3D004B234C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74A3AC1821212F3D004B234C /* Assets.xcassets */; };
 		74A537AE2122B70100F02E1E /* QHPDFView+Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A537AD2122B70100F02E1E /* QHPDFView+Collection.swift */; };
+		74A537B2212516ED00F02E1E /* QHPDFView+Scroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A537B1212516ED00F02E1E /* QHPDFView+Scroll.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		74A3AC1621209E81004B234C /* PDF32000_2008.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = PDF32000_2008.pdf; sourceTree = "<group>"; };
 		74A3AC1821212F3D004B234C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		74A537AD2122B70100F02E1E /* QHPDFView+Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QHPDFView+Collection.swift"; sourceTree = "<group>"; };
+		74A537B1212516ED00F02E1E /* QHPDFView+Scroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QHPDFView+Scroll.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 				743912602119A4DA00472B63 /* QHPDFView.swift */,
 				74391268211BEE4100472B63 /* QHPDFView+Page.swift */,
 				74A537AD2122B70100F02E1E /* QHPDFView+Collection.swift */,
+				74A537B1212516ED00F02E1E /* QHPDFView+Scroll.swift */,
 				743912622119A4ED00472B63 /* QHPDFCellView.swift */,
 				74391264211AFC8000472B63 /* QHPDFWebView.swift */,
 			);
@@ -181,6 +184,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				74A537AE2122B70100F02E1E /* QHPDFView+Collection.swift in Sources */,
+				74A537B2212516ED00F02E1E /* QHPDFView+Scroll.swift in Sources */,
 				7439125D211999FC00472B63 /* PDFViewController.swift in Sources */,
 				743912632119A4ED00472B63 /* QHPDFCellView.swift in Sources */,
 				743912612119A4DA00472B63 /* QHPDFView.swift in Sources */,
