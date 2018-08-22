@@ -18,7 +18,7 @@ public class QHPDFCellView: UIView {
     
     var index: Int = 0
     
-    override class var layerClass: AnyClass {
+    override public class var layerClass: AnyClass {
         get {
             return CATiledLayer.self
         }
