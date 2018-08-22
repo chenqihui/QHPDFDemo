@@ -71,8 +71,7 @@ extension QHPDFView: UIPageViewControllerDataSource, UIPageViewControllerDelegat
     
     func p_reloadPageView() {
         if let pageVC = pageViewController {
-            if let initViewController = p_pageViewControllerAt(index: 1) {
-                currentIndex = 1
+            if let initViewController = p_pageViewControllerAt(index: currentIndex) {
                 pageVC.setViewControllers([initViewController], direction: .reverse, animated: false) { (bResult) in
                     if bResult == true {
                         self.dataSource?.showInPDFPage(view: self, index: self.currentIndex)

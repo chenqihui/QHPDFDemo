@@ -19,6 +19,14 @@ extension QHPDFView {
         addSubview(scrollView)
         mainScrollView = scrollView
     }
+    
+    func scrollViewAt(index: Int) {
+        if let docu = document {
+            let count = docu.numberOfPages
+            currentIndex = min(index, count)
+            p_scrollViewAtCurrentIndex()
+        }
+    }
 }
 
 extension QHPDFView {
@@ -57,8 +65,12 @@ extension QHPDFView {
                 }
             }
         }
-        currentIndex = 1
-        p_scrollViewRefresh()
+        if currentIndex > 1 {
+            p_scrollViewAtCurrentIndex()
+        }
+        else {
+            p_scrollViewRefresh()
+        }
     }
     
     func p_scrollViewRefresh() {
@@ -115,6 +127,14 @@ extension QHPDFView {
                     }
                 }
             }
+        }
+    }
+    
+    private func p_scrollViewAtCurrentIndex() {
+        if let scrollV = mainScrollView {
+            let y = CGFloat(currentIndex - 1) * pageHeight * scrollV.zoomScale
+            let p = scrollV.contentOffset
+            scrollV.setContentOffset(CGPoint(x: p.x, y: y), animated: false)
         }
     }
 }

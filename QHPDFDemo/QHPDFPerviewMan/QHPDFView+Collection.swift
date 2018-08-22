@@ -59,6 +59,14 @@ extension QHPDFView: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
                 pageHeight = rect.size.height * originScale
                 
                 collectionView?.reloadData()
+                
+                if currentIndex > 1 {
+                    if let collectionV = collectionView {
+                        let y = CGFloat(currentIndex - 1) * pageHeight * collectionV.zoomScale
+                        let p = collectionV.contentOffset
+                        collectionV.setContentOffset(CGPoint(x: p.x, y: y), animated: false)
+                    }
+                }
             }
         }
     }

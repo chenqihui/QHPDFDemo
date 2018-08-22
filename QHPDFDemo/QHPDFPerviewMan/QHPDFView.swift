@@ -63,10 +63,12 @@ public class QHPDFView: UIView, UIScrollViewDelegate, QHPDFCellViewDocumentDeleg
     private func p_setup() {
     }
     
-    private func p_reload() {
+    private func p_reloadAt(index: Int) {
         if let url = dataSource?.perviewPDF(view: self) {
             if let document = CGPDFDocument(url as CFURL) {
                 self.document = document
+                let count = document.numberOfPages
+                currentIndex = min(index, count)
                 switch showType {
                 case .scroll:
                     p_reloadScrollView()
@@ -83,8 +85,8 @@ public class QHPDFView: UIView, UIScrollViewDelegate, QHPDFCellViewDocumentDeleg
     
     // MARK - Public
     
-    public func reload() {
-        p_reload()
+    public func reload(_ index: Int = 1) {
+        p_reloadAt(index: index)
     }
     
     // MARK - UIScrollViewDelegate
