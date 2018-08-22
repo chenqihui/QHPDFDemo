@@ -39,6 +39,8 @@ public class QHPDFCellView: UIView {
     init(frame: CGRect, index: Int) {
         super.init(frame: frame)
         self.index = index
+        let tiledlayer = CATiledLayer(layer: self)
+        tiledlayer.tileSize = CGSize(width: 100, height: 100)
     }
     
     required public init?(coder aDecoder: NSCoder) {
