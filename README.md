@@ -10,4 +10,4 @@ PDF 预览 &amp; 解析
 - [x] UICollection
 - [x] Seek
 - [x] CATiledLayer  
-- [ ]   
+- [ ] 渐进显示 
