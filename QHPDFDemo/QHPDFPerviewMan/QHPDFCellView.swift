@@ -8,15 +8,21 @@
 
 import UIKit
 
-protocol QHPDFCellViewDocumentDelegate: NSObjectProtocol {
+public protocol QHPDFCellViewDocumentDelegate: NSObjectProtocol {
     func documentForPDF(cell: QHPDFCellView) -> CGPDFDocument?
 }
 
-class QHPDFCellView: UIView {
+public class QHPDFCellView: UIView {
     
     weak var delegate: QHPDFCellViewDocumentDelegate?
     
     var index: Int = 0
+    
+    override class var layerClass: AnyClass {
+        get {
+            return CATiledLayer.self
+        }
+    }
     
     deinit {
         #if DEBUG
@@ -26,6 +32,8 @@ class QHPDFCellView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        let tiledlayer = CATiledLayer(layer: self)
+        tiledlayer.tileSize = CGSize(width: 100, height: 100)
     }
     
     init(frame: CGRect, index: Int) {
@@ -33,15 +41,15 @@ class QHPDFCellView: UIView {
         self.index = index
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func draw(_ rect: CGRect) {
+    override public func draw(_ rect: CGRect) {
         super.draw(rect)
     }
     
-    override func draw(_ layer: CALayer, in ctx: CGContext) {
+    override public func draw(_ layer: CALayer, in ctx: CGContext) {
         ctx.setFillColor(UIColor.white.cgColor)
         ctx.fill(bounds)
         if index <= 0 {

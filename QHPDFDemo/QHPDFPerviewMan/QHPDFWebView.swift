@@ -27,7 +27,7 @@ class QHPDFWebView: UIView, UIWebViewDelegate, UIScrollViewDelegate {
         p_setup()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -41,7 +41,7 @@ class QHPDFWebView: UIView, UIWebViewDelegate, UIScrollViewDelegate {
         }
     }
     
-    func reload() {
+    public func reload() {
         if let url = dataSource?.perviewPDF(view: self) {
             if let document = CGPDFDocument(url as CFURL) {
                 count = document.numberOfPages

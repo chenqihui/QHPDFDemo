@@ -11,7 +11,7 @@ import UIKit
 // MARK - Public
 
 extension QHPDFView {    
-    func addPageViewIn(superViewController: UIViewController, rect: CGRect, config: (() -> UIPageViewController)) {
+    public func addPageViewIn(superViewController: UIViewController, rect: CGRect, config: (() -> UIPageViewController)) {
         showType = .page
         
         if let pageVC = pageViewController {
@@ -84,21 +84,21 @@ extension QHPDFView: UIPageViewControllerDataSource, UIPageViewControllerDelegat
     
     // MARK - UIPageViewControllerDataSource
     
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+    public func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         return p_goPage(currentViewController: viewController as! QHPageViewController, incrementIndex: -1)
     }
     
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+    public func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         return p_goPage(currentViewController: viewController as! QHPageViewController, incrementIndex: 1)
     }
     
     // MARK - UIPageViewControllerDelegate
     
-    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+    public func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
         pageIsAnimating = true
     }
     
-    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+    public func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
 //        if finished == true, completed == true {
             pageIsAnimating = false
 //        }

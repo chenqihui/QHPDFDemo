@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol QHPDFDataSource: NSObjectProtocol {
+public protocol QHPDFDataSource: NSObjectProtocol {
     func perviewPDF(view: UIView) -> CFURL?
     
     func showInPDFPage(view: UIView, index: Int)
@@ -21,13 +21,13 @@ enum QHPDFViewShowType {
     case collect
 }
 
-class QHPDFView: UIView, UIScrollViewDelegate, QHPDFCellViewDocumentDelegate {
+public class QHPDFView: UIView, UIScrollViewDelegate, QHPDFCellViewDocumentDelegate {
     
     var pageHeight: CGFloat = 0
     private(set) var document: CGPDFDocument?
     var currentIndex: Int = 0
     
-    weak var dataSource: QHPDFDataSource?
+    public weak var dataSource: QHPDFDataSource?
     var showType: QHPDFViewShowType = .none
     
     // Page
@@ -51,12 +51,12 @@ class QHPDFView: UIView, UIScrollViewDelegate, QHPDFCellViewDocumentDelegate {
         #endif
     }
     
-    override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         p_setup()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -83,13 +83,13 @@ class QHPDFView: UIView, UIScrollViewDelegate, QHPDFCellViewDocumentDelegate {
     
     // MARK - Public
     
-    func reload() {
+    public func reload() {
         p_reload()
     }
     
     // MARK - UIScrollViewDelegate
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard pageHeight > 0 else {
             return
         }
@@ -122,7 +122,7 @@ class QHPDFView: UIView, UIScrollViewDelegate, QHPDFCellViewDocumentDelegate {
 //        }
 //    }
     
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+    public func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         if scrollView == collectionScrollView {
             return collectionView
         }
@@ -134,7 +134,7 @@ class QHPDFView: UIView, UIScrollViewDelegate, QHPDFCellViewDocumentDelegate {
     
     // MARK - QHPDFCellViewDocumentDelegate
     
-    func documentForPDF(cell: QHPDFCellView) -> CGPDFDocument? {
+    public func documentForPDF(cell: QHPDFCellView) -> CGPDFDocument? {
         return document
     }
 

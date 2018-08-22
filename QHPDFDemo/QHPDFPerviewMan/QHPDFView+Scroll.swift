@@ -9,7 +9,7 @@
 import UIKit
 
 extension QHPDFView {
-    func addScrollViewIn(rect: CGRect) {
+    public func addScrollViewIn(rect: CGRect) {
         showType = .scroll
         
         let scrollView = UIScrollView(frame: rect)
@@ -85,7 +85,7 @@ extension QHPDFView {
                     let cellV = QHPDFCellView(frame: rect, index: idx)
                     cellV.delegate = self
                     cellV.tag = idx
-//                    print("add == \(idx)")
+                    //                    print("add == \(idx)")
                     contenV.addSubview(cellV)
                 }
             }

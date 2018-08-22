@@ -11,7 +11,7 @@ import UIKit
 // MARK - Public
 
 extension QHPDFView {
-    func addCollectionViewIn(rect: CGRect, config: ((CGRect) -> UICollectionView?)) {
+    public func addCollectionViewIn(rect: CGRect, config: ((CGRect) -> UICollectionView?)) {
         showType = .collect
         
         let scrollV = UIScrollView(frame: rect)
@@ -65,7 +65,7 @@ extension QHPDFView: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     
     // MARK - UICollectionViewDataSource
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let docu = document {
             let count = docu.numberOfPages
             return count
@@ -73,11 +73,11 @@ extension QHPDFView: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
         return 0
     }
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+    public func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: QHPDFView.CollectionViewCellIdentifier, for: indexPath) as! QHPDFCollectionViewCell
         cell.pdfCellView.delegate = self
         cell.refreshAt(index: (indexPath.row + 1))
@@ -86,7 +86,7 @@ extension QHPDFView: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     
     // MARK - UICollectionViewDelegateFlowLayout
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.size.width, height: pageHeight)
     }
     
