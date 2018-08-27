@@ -15,6 +15,7 @@ class QHPDFWebView: UIView, UIWebViewDelegate, UIScrollViewDelegate {
     private var count: Int = 0
     
     weak var dataSource: QHPDFDataSource?
+    public weak var delegate: QHPDFDelegate?
     
     deinit {
         #if DEBUG
@@ -70,7 +71,7 @@ class QHPDFWebView: UIView, UIWebViewDelegate, UIScrollViewDelegate {
         // 以页面 top 到达屏幕顶部为翻页
         let currentIndex = Int((y / scrollView.zoomScale) / pdfPageHeight) + 1
         
-        dataSource?.showInPDFPage(view: self, index: currentIndex)
+        delegate?.showInPDFPage(view: self, index: currentIndex)
     }
 
 }

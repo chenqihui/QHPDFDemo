@@ -10,8 +10,11 @@ import UIKit
 
 public protocol QHPDFDataSource: NSObjectProtocol {
     func perviewPDF(view: UIView) -> CFURL?
-    
+}
+
+public protocol QHPDFDelegate: NSObjectProtocol {
     func showInPDFPage(view: UIView, index: Int)
+    func scrollEndPDFPage(view: UIView)
 }
 
 enum QHPDFViewShowType {
@@ -28,7 +31,9 @@ public class QHPDFView: UIView, UIScrollViewDelegate, QHPDFCellViewDocumentDeleg
     var currentIndex: Int = 0
     
     public weak var dataSource: QHPDFDataSource?
+    public weak var delegate: QHPDFDelegate?
     var showType: QHPDFViewShowType = .none
+    private(set) var count: Int = 0
     
     // Page
     var pageViewController: UIPageViewController?
@@ -46,6 +51,8 @@ public class QHPDFView: UIView, UIScrollViewDelegate, QHPDFCellViewDocumentDeleg
     var bJustShowIndexInRange = false
     
     deinit {
+        dataSource = nil
+        delegate = nil
         #if DEBUG
         print("[\(type(of: self)) \(#function)]")
         #endif
@@ -67,7 +74,7 @@ public class QHPDFView: UIView, UIScrollViewDelegate, QHPDFCellViewDocumentDeleg
         if let url = dataSource?.perviewPDF(view: self) {
             if let document = CGPDFDocument(url as CFURL) {
                 self.document = document
-                let count = document.numberOfPages
+                count = document.numberOfPages
                 currentIndex = min(index, count)
                 switch showType {
                 case .scroll:
@@ -81,6 +88,13 @@ public class QHPDFView: UIView, UIScrollViewDelegate, QHPDFCellViewDocumentDeleg
                 }
             }
         }
+    }
+    
+    private func p_endPage(in scrollV: UIScrollView) -> Bool {
+        if scrollV.contentSize.height <= scrollV.contentOffset.y + scrollV.frame.size.height {
+            return true
+        }
+        return false
     }
     
     // MARK - Public
@@ -97,21 +111,30 @@ public class QHPDFView: UIView, UIScrollViewDelegate, QHPDFCellViewDocumentDeleg
         }
         if scrollView == collectionView || scrollView == mainScrollView {
             let y = scrollView.contentOffset.y
-            //        // 以页面 bottom 到达屏幕底部为翻页
-            //        let currentIndex = ((y + self.frame.size.height) / scrollView.zoomScale) / pdfPageHeight
+            // 以页面 bottom 到达屏幕底部为翻页
+//            let cIndex = Int(((y + self.frame.size.height) / scrollView.zoomScale) / pageHeight)
             // 以页面 top 到达屏幕顶部为翻页
-            let cIndex = Int((y / scrollView.zoomScale) / pageHeight) + 1
             
-            if let docu = document {
-                let count = docu.numberOfPages
-                guard currentIndex != cIndex, cIndex > 0, cIndex <= count else {
-                    return
-                }
-                currentIndex = cIndex
-                if scrollView == mainScrollView {
-                       p_scrollViewRefresh()
-                }
-                dataSource?.showInPDFPage(view: self, index: currentIndex)
+            var cIndex = 0
+            if p_endPage(in: scrollView) {
+                cIndex = count
+            }
+            else {
+                cIndex = Int((y / scrollView.zoomScale) / pageHeight) + 1
+            }
+            
+            guard currentIndex != cIndex, cIndex > 0, cIndex <= count else {
+                return
+            }
+            currentIndex = cIndex
+            if scrollView == mainScrollView {
+                   p_scrollViewRefresh()
+            }
+            if currentIndex == count {
+                delegate?.scrollEndPDFPage(view: self)
+            }
+            else {
+                delegate?.showInPDFPage(view: self, index: currentIndex)
             }
         }
     }

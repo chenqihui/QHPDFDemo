@@ -16,7 +16,7 @@ enum PDFViewType {
     case pdfViewPageScroll
 }
 
-class PDFViewController: UIViewController, QHPDFDataSource {
+class PDFViewController: UIViewController, QHPDFDataSource, QHPDFDelegate {
 
     @IBOutlet weak var contentView: UIView!
     private var type = PDFViewType.pdfViewList
@@ -49,6 +49,7 @@ class PDFViewController: UIViewController, QHPDFDataSource {
         let rect = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height - contentView.frame.origin.y)
         let pdfView = QHPDFView(frame: rect)
         pdfView.dataSource = self
+        pdfView.delegate = self
         if let tStyle = style {
             // page
             pdfView.addPageViewIn(superViewController: self, rect: rect) { () -> UIPageViewController in
@@ -101,8 +102,14 @@ class PDFViewController: UIViewController, QHPDFDataSource {
         return url as CFURL
     }
     
+    // MAEK - QHPDFDelegate
+    
     func showInPDFPage(view: UIView, index: Int) {
         print("当前页码：\(index)")
+    }
+    
+    func scrollEndPDFPage(view: UIView) {
+        print("end")
     }
 
 }

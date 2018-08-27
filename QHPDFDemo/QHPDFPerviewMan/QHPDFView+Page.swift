@@ -39,7 +39,7 @@ extension QHPDFView: UIPageViewControllerDataSource, UIPageViewControllerDelegat
     private func p_goPageViewControllerAt(index: Int) -> QHPageViewController? {
         if let vc = p_pageViewControllerAt(index: index) {
             currentIndex = index
-            dataSource?.showInPDFPage(view: self, index: currentIndex)
+            delegate?.showInPDFPage(view: self, index: currentIndex)
             return vc
         }
         return nil
@@ -74,7 +74,7 @@ extension QHPDFView: UIPageViewControllerDataSource, UIPageViewControllerDelegat
             if let initViewController = p_pageViewControllerAt(index: currentIndex) {
                 pageVC.setViewControllers([initViewController], direction: .reverse, animated: false) { (bResult) in
                     if bResult == true {
-                        self.dataSource?.showInPDFPage(view: self, index: self.currentIndex)
+                        self.delegate?.showInPDFPage(view: self, index: self.currentIndex)
                     }
                 }
             }

@@ -65,12 +65,13 @@ extension QHPDFView {
                 }
             }
         }
+        if CGFloat(count) * pageHeight <= self.frame.size.height {
+            currentIndex = 1
+        }
         if currentIndex > 1 {
             p_scrollViewAtCurrentIndex()
         }
-        else {
-            p_scrollViewRefresh()
-        }
+        p_scrollViewRefresh()
     }
     
     func p_scrollViewRefresh() {
@@ -135,6 +136,7 @@ extension QHPDFView {
             let y = CGFloat(currentIndex - 1) * pageHeight * scrollV.zoomScale
             let p = scrollV.contentOffset
             scrollV.setContentOffset(CGPoint(x: p.x, y: y), animated: false)
+            //            scrollV.bounds = scrollV.bounds.offsetBy(dx: p.x, dy: y)
         }
     }
 }

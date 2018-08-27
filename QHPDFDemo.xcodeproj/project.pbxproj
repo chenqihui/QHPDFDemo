@@ -18,6 +18,7 @@
 		74391265211AFC8000472B63 /* QHPDFWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74391264211AFC8000472B63 /* QHPDFWebView.swift */; };
 		74391269211BEE4100472B63 /* QHPDFView+Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74391268211BEE4100472B63 /* QHPDFView+Page.swift */; };
 		74618953212CDFC900838040 /* test.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 74618952212CDFC900838040 /* test.pdf */; };
+		7461895F2133A50300838040 /* test2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7461895E2133A50300838040 /* test2.pdf */; };
 		74A3AC15211D7506004B234C /* PDFKitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A3AC14211D7506004B234C /* PDFKitViewController.swift */; };
 		74A3AC1721209E81004B234C /* PDF32000_2008.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 74A3AC1621209E81004B234C /* PDF32000_2008.pdf */; };
 		74A3AC1921212F3D004B234C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74A3AC1821212F3D004B234C /* Assets.xcassets */; };
@@ -39,6 +40,7 @@
 		74391264211AFC8000472B63 /* QHPDFWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QHPDFWebView.swift; sourceTree = "<group>"; };
 		74391268211BEE4100472B63 /* QHPDFView+Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QHPDFView+Page.swift"; sourceTree = "<group>"; };
 		74618952212CDFC900838040 /* test.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = test.pdf; sourceTree = "<group>"; };
+		7461895E2133A50300838040 /* test2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = test2.pdf; sourceTree = "<group>"; };
 		74A3AC14211D7506004B234C /* PDFKitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFKitViewController.swift; sourceTree = "<group>"; };
 		74A3AC1621209E81004B234C /* PDF32000_2008.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = PDF32000_2008.pdf; sourceTree = "<group>"; };
 		74A3AC1821212F3D004B234C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 		743912582119962700472B63 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				7461895E2133A50300838040 /* test2.pdf */,
 				74618952212CDFC900838040 /* test.pdf */,
 				74A3AC1621209E81004B234C /* PDF32000_2008.pdf */,
 				743912592119963600472B63 /* mp4.pdf */,
@@ -176,6 +179,7 @@
 				74618953212CDFC900838040 /* test.pdf in Resources */,
 				74A3AC1721209E81004B234C /* PDF32000_2008.pdf in Resources */,
 				7439124C2119918500472B63 /* Main.storyboard in Resources */,
+				7461895F2133A50300838040 /* test2.pdf in Resources */,
 				74A3AC1921212F3D004B234C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
