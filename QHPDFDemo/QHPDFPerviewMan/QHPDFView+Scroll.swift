@@ -68,9 +68,7 @@ extension QHPDFView {
         if CGFloat(count) * pageHeight <= self.frame.size.height {
             currentIndex = 1
         }
-        if currentIndex > 1 {
-            p_scrollViewAtCurrentIndex()
-        }
+        p_scrollViewAtCurrentIndex()
         p_scrollViewRefresh()
     }
     
@@ -138,5 +136,10 @@ extension QHPDFView {
             scrollV.setContentOffset(CGPoint(x: p.x, y: y), animated: false)
             //            scrollV.bounds = scrollV.bounds.offsetBy(dx: p.x, dy: y)
         }
+    }
+    
+    func p_scrollReloadScrollView() {
+        p_scrollViewAtCurrentIndex()
+        p_scrollViewRefresh()
     }
 }

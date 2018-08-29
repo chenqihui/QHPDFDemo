@@ -81,6 +81,10 @@ extension QHPDFView: UIPageViewControllerDataSource, UIPageViewControllerDelegat
         }
     }
     
+    func p_scrollReloadPageView() {
+        
+    }
+    
     // MARK - UIPageViewControllerDataSource
     
     public func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {

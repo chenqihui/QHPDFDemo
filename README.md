@@ -9,5 +9,6 @@ PDF 预览 &amp; 解析
 - [x] UIWebView
 - [x] UICollection
 - [x] Seek
-- [x] CATiledLayer  
+- [x] CATiledLayer
+- [x] Reload    
 - [ ] 渐进显示 

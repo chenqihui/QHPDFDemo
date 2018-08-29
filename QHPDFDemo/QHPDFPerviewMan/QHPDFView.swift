@@ -28,6 +28,7 @@ public class QHPDFView: UIView, UIScrollViewDelegate, QHPDFCellViewDocumentDeleg
     
     var pageHeight: CGFloat = 0
     private(set) var document: CGPDFDocument?
+    private(set) var pdfURL: CFURL?
     var currentIndex: Int = 0
     
     public weak var dataSource: QHPDFDataSource?
@@ -72,8 +73,25 @@ public class QHPDFView: UIView, UIScrollViewDelegate, QHPDFCellViewDocumentDeleg
     
     private func p_reloadAt(index: Int) {
         if let url = dataSource?.perviewPDF(view: self) {
+            if let pdfUrl = pdfURL, document != nil {
+                if url == pdfUrl {
+                    currentIndex = min(index, count)
+                    switch showType {
+                    case .scroll:
+                        p_scrollReloadScrollView()
+                    case .page:
+                        p_scrollReloadPageView()
+                    case .collect:
+                        p_scrollReloadCollectionView()
+                    case .none:
+                        print("not show")
+                    }
+                    return
+                }
+            }
             if let document = CGPDFDocument(url as CFURL) {
                 self.document = document
+                pdfURL = url
                 count = document.numberOfPages
                 currentIndex = min(index, count)
                 switch showType {

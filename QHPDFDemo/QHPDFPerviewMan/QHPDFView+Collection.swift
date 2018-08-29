@@ -71,6 +71,9 @@ extension QHPDFView: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
         }
     }
     
+    func p_scrollReloadCollectionView() {
+    }
+    
     // MARK - UICollectionViewDataSource
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
