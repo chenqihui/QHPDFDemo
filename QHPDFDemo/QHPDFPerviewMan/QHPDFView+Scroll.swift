@@ -46,6 +46,7 @@ extension QHPDFView {
                 if let mainSV = mainScrollView {
                     var newSize = mainSV.contentSize
                     if countPagesHeight > newSize.height {
+                        newSize.width = bounds.size.width;
                         newSize.height = countPagesHeight
                         mainSV.contentSize = newSize
                     }
