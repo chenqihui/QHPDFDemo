@@ -71,6 +71,10 @@ class QHPDFWebView: UIView, UIWebViewDelegate, UIScrollViewDelegate {
         // 以页面 top 到达屏幕顶部为翻页
         let currentIndex = Int((y / scrollView.zoomScale) / pdfPageHeight) + 1
         
+        if y + scrollView.frame.size.height >= scrollView.contentSize.height {
+            delegate?.scrollBottomPDFPage(view: self)
+        }
+        
         delegate?.showInPDFPage(view: self, index: currentIndex)
     }
 

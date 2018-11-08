@@ -75,6 +75,7 @@ class PDFViewController: UIViewController, QHPDFDataSource, QHPDFDelegate {
     private func p_addPDFWebView() {
         let webView = QHPDFWebView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height - contentView.frame.origin.y))
         webView.dataSource = self
+        webView.delegate = self
         contentView.addSubview(webView)
         webView.reload()
     }
@@ -95,7 +96,7 @@ class PDFViewController: UIViewController, QHPDFDataSource, QHPDFDelegate {
     // MARK - QHPDFDataSource
     
     func perviewPDF(view: UIView) -> CFURL? {
-        guard let path = Bundle.main.path(forResource: "test", ofType: "pdf") else {
+        guard let path = Bundle.main.path(forResource: "test3", ofType: "pdf") else {
             return nil
         }
         let url = URL(fileURLWithPath: path)
@@ -106,10 +107,15 @@ class PDFViewController: UIViewController, QHPDFDataSource, QHPDFDelegate {
     
     func showInPDFPage(view: UIView, index: Int) {
         print("当前页码：\(index)")
+        if let pdfView = view as? QHPDFView {
+            if index == pdfView.pdfCount() {
+                print("end")
+            }
+        }
     }
     
-    func scrollEndPDFPage(view: UIView) {
-        print("end")
+    func scrollBottomPDFPage(view: UIView) {
+        print("bottom")
     }
 
 }

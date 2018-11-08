@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7408D5B3219417E9004139FE /* test3.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7408D5B2219417E9004139FE /* test3.pdf */; };
 		743912472119918500472B63 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743912462119918500472B63 /* AppDelegate.swift */; };
 		743912492119918500472B63 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743912482119918500472B63 /* ViewController.swift */; };
 		7439124C2119918500472B63 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7439124A2119918500472B63 /* Main.storyboard */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7408D5B2219417E9004139FE /* test3.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = test3.pdf; sourceTree = "<group>"; };
 		743912432119918500472B63 /* QHPDFDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QHPDFDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		743912462119918500472B63 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		743912482119918500472B63 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 		743912582119962700472B63 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				7408D5B2219417E9004139FE /* test3.pdf */,
 				7461895E2133A50300838040 /* test2.pdf */,
 				74618952212CDFC900838040 /* test.pdf */,
 				74A3AC1621209E81004B234C /* PDF32000_2008.pdf */,
@@ -178,6 +181,7 @@
 				743912512119918900472B63 /* LaunchScreen.storyboard in Resources */,
 				74618953212CDFC900838040 /* test.pdf in Resources */,
 				74A3AC1721209E81004B234C /* PDF32000_2008.pdf in Resources */,
+				7408D5B3219417E9004139FE /* test3.pdf in Resources */,
 				7439124C2119918500472B63 /* Main.storyboard in Resources */,
 				7461895F2133A50300838040 /* test2.pdf in Resources */,
 				74A3AC1921212F3D004B234C /* Assets.xcassets in Resources */,

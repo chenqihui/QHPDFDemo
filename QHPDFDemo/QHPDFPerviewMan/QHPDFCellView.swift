@@ -26,7 +26,7 @@ public class QHPDFCellView: UIView {
     
     deinit {
         #if DEBUG
-        print("[\(type(of: self)) \(#function)]")
+//        print("[\(type(of: self)) \(#function)]")
         #endif
     }
     

@@ -13,8 +13,10 @@ public protocol QHPDFDataSource: NSObjectProtocol {
 }
 
 public protocol QHPDFDelegate: NSObjectProtocol {
+    // 当前页改变，当前页是 1 的时候（即首页），是不会回调，计算页面改变是根据当前页到达顶部才算，可能对于由于PDF的高小于屏幕，即浏览到，可是不会d到顶部，即不会回调。
     func showInPDFPage(view: UIView, index: Int)
-    func scrollEndPDFPage(view: UIView)
+    // 滑到底部的回调，不论多少页，这样滑到底部就回调，如果pdf总高度小于屏幕，也会b回调，即可以通过此判断是否浏览完c整个PDF
+    func scrollBottomPDFPage(view: UIView)
 }
 
 enum QHPDFViewShowType {
@@ -121,6 +123,10 @@ public class QHPDFView: UIView, UIScrollViewDelegate, QHPDFCellViewDocumentDeleg
         p_reloadAt(index: index)
     }
     
+    public func pdfCount() -> Int {
+        return count
+    }
+    
     // MARK - UIScrollViewDelegate
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -140,6 +146,9 @@ public class QHPDFView: UIView, UIScrollViewDelegate, QHPDFCellViewDocumentDeleg
             else {
                 cIndex = Int((y / scrollView.zoomScale) / pageHeight) + 1
             }
+            if y + scrollView.frame.size.height >= scrollView.contentSize.height {
+                delegate?.scrollBottomPDFPage(view: self)
+            }
             
             guard currentIndex != cIndex, cIndex > 0, cIndex <= count else {
                 return
@@ -148,12 +157,7 @@ public class QHPDFView: UIView, UIScrollViewDelegate, QHPDFCellViewDocumentDeleg
             if scrollView == mainScrollView {
                    p_scrollViewRefresh()
             }
-            if currentIndex == count {
-                delegate?.scrollEndPDFPage(view: self)
-            }
-            else {
-                delegate?.showInPDFPage(view: self, index: currentIndex)
-            }
+            delegate?.showInPDFPage(view: self, index: currentIndex)
         }
     }
     
